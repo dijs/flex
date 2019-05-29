@@ -48,9 +48,10 @@ function randomPastel(seed) {
 }
 
 function Item({ depth = 0, index = 0, items, path = [], ...other }) {
-  const { setActivePath } = useContext(ActivePathContext);
+  const { activePath, setActivePath } = useContext(ActivePathContext);
   const seed = depth * 8 + index;
   const backgroundColor = randomPastel(seed);
+  const active = path.join('') === activePath.join('');
   return (
     <div
       className="item"
@@ -64,6 +65,14 @@ function Item({ depth = 0, index = 0, items, path = [], ...other }) {
         ...other
       }}
     >
+      {active && (
+        <React.Fragment>
+          <div className="active top-left" />
+          <div className="active top-right" />
+          <div className="active bottom-left" />
+          <div className="active bottom-right" />
+        </React.Fragment>
+      )}
       {items &&
         items.map((item, i) => (
           <Item
@@ -96,9 +105,9 @@ function Editor({ data, onChange }) {
 
 function usePreview() {
   const [preview, setPreview] = useState(basePreview);
-
   return {
     preview,
+    data: path => get(preview, path) || preview,
     modify: (path, data) => {
       if (path.length) {
         const newPreview = cloneDeep(preview);
@@ -118,20 +127,34 @@ function usePreview() {
         set(newPreview, [...path], { items: [{}] });
       }
       setPreview(newPreview);
+    },
+    remove: path => {
+      const pathData = get(preview, path) || preview;
+      const items = pathData.items;
+      const newPreview = cloneDeep(preview);
+      if (!items) {
+        return;
+      }
+      const restItems = items.slice(0, items.length - 1);
+      set(newPreview, [...path, 'items'], restItems);
+      setPreview(newPreview);
     }
   };
 }
 
 function App() {
-  const { preview, add, modify } = usePreview();
+  const { preview, add, remove, modify, data } = usePreview();
   const { activePath } = useContext(ActivePathContext);
-  const pathData = get(preview, activePath) || preview;
   return (
     <div className="container">
       <h1>FlexGen</h1>
       <Item {...preview} />
       <button onClick={() => add(activePath)}>+</button>
-      <Editor data={pathData} onChange={data => modify(activePath, data)} />
+      <button onClick={() => remove(activePath)}>-</button>
+      <Editor
+        data={data(activePath)}
+        onChange={data => modify(activePath, data)}
+      />
     </div>
   );
 }

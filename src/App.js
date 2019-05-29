@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { get, set } from 'lodash';
+import { get, set, cloneDeep } from 'lodash';
 
 const ActivePathContext = React.createContext();
 
@@ -94,34 +94,44 @@ function Editor({ data, onChange }) {
   );
 }
 
-function App() {
+function usePreview() {
   const [preview, setPreview] = useState(basePreview);
+
+  return {
+    preview,
+    modify: (path, data) => {
+      if (path.length) {
+        const newPreview = cloneDeep(preview);
+        set(newPreview, path, data);
+        setPreview(newPreview);
+      } else {
+        setPreview(data);
+      }
+    },
+    add: path => {
+      const pathData = get(preview, path) || preview;
+      const items = pathData.items;
+      const newPreview = cloneDeep(preview);
+      if (items) {
+        set(newPreview, [...path, 'items'], [...items, {}]);
+      } else {
+        set(newPreview, [...path], { items: [{}] });
+      }
+      setPreview(newPreview);
+    }
+  };
+}
+
+function App() {
+  const { preview, add, modify } = usePreview();
   const { activePath } = useContext(ActivePathContext);
   const pathData = get(preview, activePath) || preview;
   return (
     <div className="container">
       <h1>FlexGen</h1>
       <Item {...preview} />
-      <button
-        onClick={() => {
-          const items = pathData.items;
-          const newThing = set(
-            preview,
-            [...activePath, 'items'],
-            [...items, {}]
-          );
-          setPreview(newThing);
-        }}
-      >
-        +
-      </button>
-      <Editor
-        data={pathData}
-        onChange={data => {
-          const newPreview = set(preview, activePath, data);
-          setPreview(newPreview);
-        }}
-      />
+      <button onClick={() => add(activePath)}>+</button>
+      <Editor data={pathData} onChange={data => modify(activePath, data)} />
     </div>
   );
 }

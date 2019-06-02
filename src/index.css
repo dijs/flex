@@ -55,7 +55,6 @@ code {
   border-right: 2px solid black;
 }
 
-textarea {
-  width: 100%;
-  height: 400px;
+.editor label {
+  display: block;
 }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { get, set, cloneDeep } from 'lodash';
+import Editor from './Editor';
 
 const ActivePathContext = React.createContext();
 
@@ -25,7 +26,7 @@ const basePreview = {
 };
 
 function random(seed) {
-  var x = Math.sin(seed) * 10000;
+  const x = Math.sin(seed) * 10000;
   return x - Math.floor(x);
 }
 
@@ -84,22 +85,6 @@ function Item({ depth = 0, index = 0, items, path = [], ...other }) {
           />
         ))}
     </div>
-  );
-}
-
-function Editor({ data, onChange }) {
-  const [text, setText] = useState(JSON.stringify(data, null, 3));
-  useEffect(() => {
-    setText(JSON.stringify(data, null, 3));
-  }, [data]);
-  return (
-    <textarea
-      onBlur={() => {
-        onChange(JSON.parse(text));
-      }}
-      onChange={e => setText(e.target.value)}
-      value={text}
-    />
   );
 }
 

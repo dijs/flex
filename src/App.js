@@ -3,6 +3,7 @@ import Item from './Item';
 import Editor from './Editor';
 import ActivePathContext from './ActivePathContext';
 import usePreview from './usePreview';
+import CssRenderer from './CssRenderer';
 
 function App() {
   const { preview, add, remove, modify, data } = usePreview();
@@ -17,6 +18,7 @@ function App() {
         data={data(activePath)}
         onChange={data => modify(activePath, data)}
       />
+      <CssRenderer data={preview} />
     </div>
   );
 }

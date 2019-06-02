@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { get, set, cloneDeep } from 'lodash';
 import Editor from './Editor';
 
@@ -133,9 +133,9 @@ function App() {
   return (
     <div className="container">
       <h1>FlexGen</h1>
-      <Item {...preview} />
       <button onClick={() => add(activePath)}>+</button>
       <button onClick={() => remove(activePath)}>-</button>
+      <Item {...preview} />
       <Editor
         data={data(activePath)}
         onChange={data => modify(activePath, data)}

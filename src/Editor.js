@@ -81,10 +81,16 @@ export default function Editor({ data, onChange }) {
   return (
     <div className="editor">
       {flexProperties.map(prop => (
-        <Input key={prop.id} {...prop} data={options} setter={setOptions} />
+        <Input
+          key={prop.id}
+          {...prop}
+          data={options}
+          setter={updatedOptions => {
+            setOptions(updatedOptions);
+            onChange({ ...data, ...updatedOptions });
+          }}
+        />
       ))}
-      <br />
-      <button onClick={() => onChange({ ...data, ...options })}>Update</button>
     </div>
   );
 }

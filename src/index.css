@@ -16,6 +16,11 @@ code {
   padding: 16px;
 }
 
+.bottom {
+  display: flex;
+  justify-content: space-between;
+}
+
 .item {
   padding: 16px;
   position: relative;

@@ -31,8 +31,8 @@ const flexProperties = [
     id: 'height'
   },
   {
-    name: 'Background',
-    id: 'background'
+    name: 'Background Color',
+    id: 'backgroundColor'
   }
 ];
 
@@ -77,9 +77,14 @@ function Input({ name, id, options = [], data, setter }) {
 
 export default function Editor({ data, onChange }) {
   const [options, setOptions] = useState(data);
-  useEffect(() => setOptions(data), [data]);
+  useEffect(() => {
+    console.log('effect');
+    setOptions(data);
+  }, [data]);
+
   return (
     <div className="editor">
+      <h3>Properties</h3>
       {flexProperties.map(prop => (
         <Input
           key={prop.id}

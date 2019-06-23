@@ -1,49 +1,25 @@
 import { useState } from 'react';
-import { get, set, cloneDeep } from 'lodash';
+import { without, get, set, cloneDeep } from 'lodash';
 
 const basePreview = {
   backgroundColor: '#eee',
   items: []
 };
 
-function random(seed) {
-  const x = Math.sin(seed) * 10000;
-  return x - Math.floor(x);
-}
+const baseColors = [
+  '#165c7d',
+  '#77c5d5',
+  '#C63527',
+  '#DECD63',
+  '#719949',
+  '#3F4444',
+  '#75787b'
+];
 
-const pastelParts = 'abcdef'.split('');
-
-function randomPastelPart(seed) {
-  return pastelParts[Math.floor(random(seed) * pastelParts.length)];
-}
-
-function randomPastel(seed) {
-  return (
-    '#' +
-    randomPastelPart(seed + 1) +
-    randomPastelPart(seed + 3) +
-    randomPastelPart(seed + 5) +
-    randomPastelPart(seed + 7) +
-    randomPastelPart(seed + 9) +
-    randomPastelPart(seed + 0)
-  );
-}
-
-function hash(str) {
-  let hash = 0;
-  if (str.length === 0) {
-    return hash;
-  }
-  for (let i = 0; i < str.length; i++) {
-    let char = str.charCodeAt(i);
-    hash = (hash << 5) - hash + char;
-    hash = hash & hash;
-  }
-  return hash;
-}
-
-function seed(items, path) {
-  return hash(path.join('|') + (items ? items.length : 0));
+function childColor(items = [], path, parentColor) {
+  const allowedColors = without(baseColors, parentColor);
+  const seed = items.length + path.length;
+  return allowedColors[seed % allowedColors.length];
 }
 
 export default function usePreview() {
@@ -66,8 +42,9 @@ export default function usePreview() {
       const items = pathData.items;
 
       const newPreview = cloneDeep(preview);
-      const backgroundColor = randomPastel(seed(items, path));
-      const item = { backgroundColor };
+      const parentColor = pathData.backgroundColor;
+      const backgroundColor = childColor(items, path, parentColor);
+      const item = { backgroundColor, flex: 1 };
 
       if (items) {
         set(newPreview, [...path, 'items'], [...items, item]);

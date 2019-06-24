@@ -1,9 +1,9 @@
 # TODO
 
-- Generate real CSS/SASS/JSON
-  - Use tabs
 - Use full property options
-  - In sidebar?
-- Better UI theme
 - Animations
 - Drag and drop containers
+- un-react and prettify CSS/SASS/JSS (using tabs)
+- un-react and prettify HTML
+- Copy/paste CSS/HTML
+- Have pre-ready templates

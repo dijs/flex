@@ -16,13 +16,18 @@ code {
   padding: 16px;
 }
 
-.bottom {
+.preview {
+  margin: 16px 0;
+}
+
+main {
   display: flex;
   justify-content: space-between;
 }
 
 .item {
   padding: 16px;
+  min-height: 64px;
   position: relative;
 }
 
@@ -32,32 +37,58 @@ code {
   height: 4px;
 }
 
+.renderers {
+  flex: 1;
+}
+
+.properties {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  .property {
+    margin: 8px;
+    flex: 1;
+    font-size: 16px;
+  }
+}
+
+.renderers {
+  pre {
+    margin-top: 0;
+    padding: 24px 0;
+  }
+}
+
+$corner-size: 3px;
+$corner-color: #212322;
+
 .item .top-left {
   left: 0;
   top: 0;
-  border-top: 2px solid black;
-  border-left: 2px solid black;
+  border-top: $corner-size solid $corner-color;
+  border-left: $corner-size solid $corner-color;
 }
 
 .item .top-right {
   right: 0;
   top: 0;
-  border-top: 2px solid black;
-  border-right: 2px solid black;
+  border-top: $corner-size solid $corner-color;
+  border-right: $corner-size solid $corner-color;
 }
 
 .item .bottom-left {
   left: 0;
   bottom: 0;
-  border-bottom: 2px solid black;
-  border-left: 2px solid black;
+  border-bottom: $corner-size solid $corner-color;
+  border-left: $corner-size solid $corner-color;
 }
 
 .item .bottom-right {
   right: 0;
   bottom: 0;
-  border-bottom: 2px solid black;
-  border-right: 2px solid black;
+  border-bottom: $corner-size solid $corner-color;
+  border-right: $corner-size solid $corner-color;
 }
 
 .editor label {

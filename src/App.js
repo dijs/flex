@@ -1,30 +1,44 @@
 import React, { useState, useContext } from 'react';
+
+import Button from '@material-ui/core/Button';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
+import AddIcon from '@material-ui/icons/Add';
+import RemoveIcon from '@material-ui/icons/Remove';
+import Typography from '@material-ui/core/Typography';
+
 import Item from './Item';
 import Editor from './Editor';
 import ActivePathContext from './ActivePathContext';
 import usePreview from './usePreview';
-import CssRenderer from './CssRenderer';
-import HtmlRenderer from './HtmlRenderer';
+import Renders from './Renderers';
 
 function App() {
   const { preview, add, remove, modify, data } = usePreview();
   const { activePath } = useContext(ActivePathContext);
   return (
     <div className="container">
-      <h1>FlexGen</h1>
-      <button onClick={() => add(activePath)}>+</button>
-      <button onClick={() => remove(activePath)}>-</button>
+      <Typography variant="h1" gutterBottom>
+        FlexGen
+      </Typography>
+      <ButtonGroup color="primary">
+        <Button onClick={() => add(activePath)}>
+          <AddIcon /> Add Child
+        </Button>
+        <Button onClick={() => remove(activePath)}>
+          <RemoveIcon /> Remove Child
+        </Button>
+      </ButtonGroup>
+
       <div className="preview">
         <Item {...preview} />
       </div>
-      <div className="bottom">
+      <main>
         <Editor
           data={data(activePath)}
           onChange={data => modify(activePath, data)}
         />
-        <CssRenderer data={preview} />
-        <HtmlRenderer data={preview} />
-      </div>
+        <Renders preview={preview} />
+      </main>
     </div>
   );
 }

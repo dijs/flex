@@ -9,8 +9,6 @@ export default function Item({
   ...other
 }) {
   const { activePath, setActivePath } = useContext(ActivePathContext);
-  // const seed = depth * 8 + index;
-  // const backgroundColor = randomPastel(seed);
   const active = path.join('') === activePath.join('');
   return (
     <div

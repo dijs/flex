@@ -3,6 +3,7 @@ import { without, get, set, cloneDeep } from 'lodash';
 
 const basePreview = {
   backgroundColor: '#eee',
+  // direction: 'row',
   items: []
 };
 
@@ -44,7 +45,9 @@ export default function usePreview() {
       const newPreview = cloneDeep(preview);
       const parentColor = pathData.backgroundColor;
       const backgroundColor = childColor(items, path, parentColor);
-      const item = { backgroundColor, flex: 1 };
+
+      // TODO: Figure out how to start with default values
+      const item = { backgroundColor, flex: 1, direction: 'row' };
 
       if (items) {
         set(newPreview, [...path, 'items'], [...items, item]);

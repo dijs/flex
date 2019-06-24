@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from '@material-ui/core/Button';
 
 let count = 0;
 
@@ -18,8 +19,10 @@ export default function CssRenderer({ data }) {
   traverse(data, classes);
   return (
     <div className="css">
-      <h3>CSS</h3>
       <pre>{JSON.stringify(classes, null, 3)}</pre>
+      <Button size="small" variant="contained" color="primary">
+        Copy
+      </Button>
     </div>
   );
 }

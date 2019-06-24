@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
+import MenuItem from '@material-ui/core/MenuItem';
 
 const flexProperties = [
   {
     name: 'Direction',
     id: 'flexDirection',
-    options: ['row', 'column']
+    options: ['row', 'column'],
+    defaultValue: 'row',
+    description:
+      'This establishes the main-axis, thus defining the direction flex items are placed in the flex container. Flexbox is (aside from optional wrapping) a single-direction layout concept. Think of flex items as primarily laying out either in horizontal rows or vertical columns.'
   },
   {
     name: 'Flex',
@@ -36,33 +42,22 @@ const flexProperties = [
   }
 ];
 
-function Input({ name, id, options = [], data, setter }) {
-  if (options.length) {
-    return (
-      <label>
-        {name}
-        <select
-          value={data[id] || ''}
-          onChange={e =>
-            setter({
-              ...data,
-              [id]: e.target.value
-            })
-          }
-        >
-          <option key="blank" />
-          {options.map(prop => (
-            <option key={prop}>{prop}</option>
-          ))}
-        </select>
-      </label>
-    );
-  }
+function Input({
+  name,
+  id,
+  options = [],
+  data,
+  setter,
+  description,
+  defaultValue
+}) {
   return (
-    <label>
-      {name}
-      <input
-        type="text"
+    <div className="property">
+      <TextField
+        label={name}
+        fullWidth
+        placeholder={defaultValue || ''}
+        helperText={description || ''}
         value={data[id] || ''}
         onChange={e =>
           setter({
@@ -70,8 +65,21 @@ function Input({ name, id, options = [], data, setter }) {
             [id]: e.target.value
           })
         }
-      />
-    </label>
+        InputLabelProps={{
+          shrink: true
+        }}
+        select={!!options.length}
+      >
+        {options.length &&
+          options.map(prop => {
+            return (
+              <MenuItem key={prop} value={prop}>
+                {prop}
+              </MenuItem>
+            );
+          })}
+      </TextField>
+    </div>
   );
 }
 
@@ -83,8 +91,7 @@ export default function Editor({ data, onChange }) {
   }, [data]);
 
   return (
-    <div className="editor">
-      <h3>Properties</h3>
+    <div className="properties">
       {flexProperties.map(prop => (
         <Input
           key={prop.id}

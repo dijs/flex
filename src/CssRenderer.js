@@ -1,25 +1,36 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
+import kebabCase from 'lodash/kebabCase';
 
 let count = 0;
 
-// TODO: Convert React CSS to normal CSS
-
-function traverse(node, classes) {
-  const { items, ...options } = node;
-  classes[`class${count++}`] = options;
+function getStyles({ items, ...options }) {
+  let css = `.class${count++} {\n`;
   if (items) {
-    items.forEach(n => traverse(n, classes));
+    css += '\tdisplay: flex;\n';
   }
+  css += Object.keys(options)
+    .map(key => {
+      return `\t${kebabCase(key)}: ${options[key]};\n`;
+    })
+    .join('');
+  css += '}\n';
+  return css;
+}
+
+function buildStyles(node, styles = '') {
+  styles += getStyles(node);
+  if (node.items) {
+    node.items.forEach(n => (styles = buildStyles(n, styles)));
+  }
+  return styles;
 }
 
 export default function CssRenderer({ data }) {
-  const classes = {};
   count = 0;
-  traverse(data, classes);
   return (
     <div className="css">
-      <pre>{JSON.stringify(classes, null, 3)}</pre>
+      <pre>{buildStyles(data)}</pre>
       <Button size="small" variant="contained" color="primary">
         Copy
       </Button>

@@ -1,9 +1,5 @@
 import React, { useState, useContext } from 'react';
 
-import Button from '@material-ui/core/Button';
-import ButtonGroup from '@material-ui/core/ButtonGroup';
-import AddIcon from '@material-ui/icons/Add';
-import RemoveIcon from '@material-ui/icons/Remove';
 import Typography from '@material-ui/core/Typography';
 
 import Item from './Item';
@@ -15,6 +11,15 @@ import Example from './Source';
 function App() {
   const { preview, add, remove, modify, data } = usePreview();
   const { activePath } = useContext(ActivePathContext);
+
+  function addToActive() {
+    add(activePath);
+  }
+
+  function removeFromActive() {
+    remove(activePath);
+  }
+
   return (
     <div className="container">
       <Typography variant="h2" component="h1">
@@ -23,17 +28,8 @@ function App() {
       <Typography variant="subtitle1" gutterBottom>
         A helpful tool to plan out flex layouts
       </Typography>
-      <ButtonGroup color="primary">
-        <Button onClick={() => add(activePath)}>
-          <AddIcon /> Add Child
-        </Button>
-        <Button onClick={() => remove(activePath)}>
-          <RemoveIcon /> Remove Child
-        </Button>
-      </ButtonGroup>
-
       <div className="preview">
-        <Item {...preview} />
+        <Item {...preview} add={addToActive} remove={removeFromActive} />
       </div>
       <main>
         <Editor

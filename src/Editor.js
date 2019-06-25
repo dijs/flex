@@ -141,7 +141,7 @@ export default function Editor({ data, onChange }) {
   return (
     <div className="properties">
       <Paper className="paper">
-        <Typography variant="h6">For Container</Typography>
+        <Typography variant="h6">Container Properties</Typography>
         {flexContainerProperties.map(prop => (
           <Input
             key={prop.id}
@@ -155,7 +155,7 @@ export default function Editor({ data, onChange }) {
         ))}
       </Paper>
       <Paper className="paper">
-        <Typography variant="h6">For Item</Typography>
+        <Typography variant="h6">Item Properties</Typography>
         {flexItemProperties.map(prop => (
           <Input
             key={prop.id}

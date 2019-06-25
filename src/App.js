@@ -10,15 +10,18 @@ import Item from './Item';
 import Editor from './Editor';
 import ActivePathContext from './ActivePathContext';
 import usePreview from './usePreview';
-import Renders from './Renderers';
+import Example from './Source';
 
 function App() {
   const { preview, add, remove, modify, data } = usePreview();
   const { activePath } = useContext(ActivePathContext);
   return (
     <div className="container">
-      <Typography variant="h1" gutterBottom>
+      <Typography variant="h2" component="h1">
         FlexGen
+      </Typography>
+      <Typography variant="subtitle1" gutterBottom>
+        A helpful tool to plan out flex layouts
       </Typography>
       <ButtonGroup color="primary">
         <Button onClick={() => add(activePath)}>
@@ -37,7 +40,7 @@ function App() {
           data={data(activePath)}
           onChange={data => modify(activePath, data)}
         />
-        <Renders preview={preview} />
+        <Example preview={preview} />
       </main>
     </div>
   );

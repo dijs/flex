@@ -45,7 +45,22 @@ function buildHtml(data) {
   const body = buildDom(data);
   return pretty(`<html>
     <head>
-      <style>${css}</style>
+      <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      body > div {
+        flex: 1;
+      }
+      div {
+        min-height: 64px;
+        min-width: 64px;
+        padding: 16px;
+      }
+      ${css}
+      </style>
     </head>
     <body>${body}</body>
   </html>`);

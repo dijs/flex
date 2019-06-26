@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import TextField from '@material-ui/core/TextField';
-import MenuItem from '@material-ui/core/MenuItem';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+import Input from './Input';
 
 const flexItemProperties = [
   {
@@ -67,9 +66,7 @@ const flexContainerProperties = [
     description:
       'This defines the alignment along the main axis. It helps distribute extra free space left over when either all the flex items on a line are inflexible, or are flexible but have reached their maximum size. It also exerts some control over the alignment of items when they overflow the line.',
     defaultValue: 'flex-start',
-    options: 'center,start,end,left,right,space-around,space-between,space-evenly'.split(
-      ','
-    )
+    options: 'flex-start,flex-end,center,space-between,space-around'.split(',')
   },
   {
     name: 'Align Items',
@@ -89,47 +86,6 @@ const flexContainerProperties = [
     )
   }
 ];
-
-function Input({
-  name,
-  id,
-  options = [],
-  data,
-  setter,
-  description,
-  defaultValue
-}) {
-  return (
-    <div className="property">
-      <TextField
-        label={name}
-        fullWidth
-        placeholder={defaultValue || ''}
-        helperText={description || ''}
-        value={data[id] || ''}
-        onChange={e =>
-          setter({
-            ...data,
-            [id]: e.target.value
-          })
-        }
-        InputLabelProps={{
-          shrink: true
-        }}
-        select={!!options.length}
-      >
-        {options.length &&
-          options.map(prop => {
-            return (
-              <MenuItem key={prop} value={prop}>
-                {prop}
-              </MenuItem>
-            );
-          })}
-      </TextField>
-    </div>
-  );
-}
 
 export default function Editor({ data, onChange }) {
   const [options, setOptions] = useState(data);

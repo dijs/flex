@@ -26,7 +26,7 @@ function App() {
         FlexGen
       </Typography>
       <Typography variant="subtitle1" gutterBottom>
-        A helpful tool to plan out flex layouts
+        A tool for planning out flex layouts
       </Typography>
       <div className="preview">
         <Item {...preview} add={addToActive} remove={removeFromActive} />

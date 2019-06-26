@@ -31,6 +31,11 @@ function App() {
       <div className="preview">
         <Item {...preview} add={addToActive} remove={removeFromActive} />
       </div>
+      <Typography variant="p">
+        Hover over the elements above to add or remove children to the selected
+        element. Click to make an element active. The properties below are for
+        the currently active element.
+      </Typography>
       <main>
         <Editor
           data={data(activePath)}

@@ -97,7 +97,10 @@ export default function Editor({ data, onChange }) {
   return (
     <div className="properties">
       <Paper className="paper">
-        <Typography variant="h6">Container Properties</Typography>
+        <Typography variant="h6">Container</Typography>
+        <Typography variant="p">
+          Properties which manage the parent level styles
+        </Typography>
         {flexContainerProperties.map(prop => (
           <Input
             key={prop.id}
@@ -111,7 +114,10 @@ export default function Editor({ data, onChange }) {
         ))}
       </Paper>
       <Paper className="paper">
-        <Typography variant="h6">Item Properties</Typography>
+        <Typography variant="h6">Item</Typography>
+        <Typography variant="p">
+          Properties which manage the item level styles
+        </Typography>
         {flexItemProperties.map(prop => (
           <Input
             key={prop.id}

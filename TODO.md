@@ -1,5 +1,6 @@
 # TODO
 
 - Have pre-ready templates
-- Animations
-- Drag and drop containers
+- Add reset button to clear all
+- Icon
+- Publish

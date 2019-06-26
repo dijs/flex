@@ -31,7 +31,15 @@ main {
   position: relative;
 }
 
-.item .active {
+.item.active .item {
+  opacity: 0.5;
+}
+
+.item.active .item:hover {
+  opacity: 0.6;
+}
+
+.item .corner {
   position: absolute;
   width: 4px;
   height: 4px;
@@ -55,6 +63,7 @@ main {
   top: calc(50% - 20px);
   opacity: 0;
   transition: opacity 0.3s;
+  z-index: 1;
 }
 
 .item:hover > .controls {
@@ -91,35 +100,39 @@ h6 {
   }
 }
 
-$corner-size: 3px;
-$corner-color: #212322;
+$corner-size: 4px;
+$corner-color: #75787b;
 
-.item .top-left {
-  left: 0;
-  top: 0;
+.corner.top-left {
+  left: -$corner-size / 2;
+  top: -$corner-size / 2;
   border-top: $corner-size solid $corner-color;
   border-left: $corner-size solid $corner-color;
+  z-index: 1;
 }
 
-.item .top-right {
-  right: 0;
-  top: 0;
+.corner.top-right {
+  right: -$corner-size / 2;
+  top: -$corner-size / 2;
   border-top: $corner-size solid $corner-color;
   border-right: $corner-size solid $corner-color;
+  z-index: 1;
 }
 
-.item .bottom-left {
-  left: 0;
-  bottom: 0;
+.corner.bottom-left {
+  left: -$corner-size / 2;
+  bottom: -$corner-size / 2;
   border-bottom: $corner-size solid $corner-color;
   border-left: $corner-size solid $corner-color;
+  z-index: 1;
 }
 
-.item .bottom-right {
-  right: 0;
-  bottom: 0;
+.corner.bottom-right {
+  right: -$corner-size / 2;
+  bottom: -$corner-size / 2;
   border-bottom: $corner-size solid $corner-color;
   border-right: $corner-size solid $corner-color;
+  z-index: 1;
 }
 
 .editor label {

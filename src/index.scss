@@ -16,6 +16,14 @@ code {
   padding: 16px;
 }
 
+.top {
+  display: flex;
+  button {
+    margin: 0 16px;
+    width: 200px;
+  }
+}
+
 .preview {
   margin: 16px 0;
 }

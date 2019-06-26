@@ -28,6 +28,8 @@ export default function usePreview() {
   return {
     preview,
     data: path => get(preview, path) || preview,
+    reset: () => setPreview(basePreview),
+    set: setPreview,
     modify: (path, data) => {
       if (path.length) {
         const newPreview = cloneDeep(preview);

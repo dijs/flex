@@ -90,7 +90,6 @@ const flexContainerProperties = [
 export default function Editor({ data, onChange }) {
   const [options, setOptions] = useState(data);
   useEffect(() => {
-    console.log('effect');
     setOptions(data);
   }, [data]);
 
@@ -98,7 +97,7 @@ export default function Editor({ data, onChange }) {
     <div className="properties">
       <Paper className="paper">
         <Typography variant="h6">Container</Typography>
-        <Typography variant="p">
+        <Typography variant="caption">
           Properties which manage the parent level styles
         </Typography>
         {flexContainerProperties.map(prop => (
@@ -115,7 +114,7 @@ export default function Editor({ data, onChange }) {
       </Paper>
       <Paper className="paper">
         <Typography variant="h6">Item</Typography>
-        <Typography variant="p">
+        <Typography variant="caption">
           Properties which manage the item level styles
         </Typography>
         {flexItemProperties.map(prop => (

@@ -3,6 +3,7 @@ import React, { useState, useContext } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
+import logo from './logo.svg';
 import Item from './Item';
 import Editor from './Editor';
 import ActivePathContext from './ActivePathContext';
@@ -17,13 +18,9 @@ function App() {
   const addToActive = () => add(activePath);
   const removeFromActive = () => remove(activePath);
 
-  window.peep = () => console.log(JSON.stringify(preview));
-
   return (
     <div className="container">
-      <Typography variant="h2" component="h1">
-        FlexGen
-      </Typography>
+      <img className="logo" src={logo} alt="logo" />
       <Typography variant="subtitle1" gutterBottom>
         A tool for planning out flex layouts
       </Typography>
@@ -53,6 +50,17 @@ function App() {
         />
         <Source preview={preview} />
       </main>
+      <footer>
+        <div>
+          © 2019 van der Dys Development & Design, LLC. All rights Reserved.
+        </div>
+        <a href="https://vanderdys.design">
+          <img
+            src="https://vanderdys.design/static/DysLogoBlack.svg"
+            alt="van der Dys Development & Design"
+          />
+        </a>
+      </footer>
     </div>
   );
 }

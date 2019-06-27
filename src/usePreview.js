@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { without, get, set, cloneDeep } from 'lodash';
 
 const basePreview = {
-  backgroundColor: '#F2F1F0',
+  backgroundColor: 'white',
   items: []
 };
 

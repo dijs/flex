@@ -7,7 +7,7 @@
     "@material-ui/core": "^4.1.1",
     "@material-ui/icons": "^4.2.0",
     "classnames": "^2.2.6",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.19",
     "node-sass": "^4.12.0",
     "pretty": "^2.0.0",
     "react": "^16.8.6",
